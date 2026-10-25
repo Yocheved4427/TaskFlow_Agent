@@ -1,0 +1,37 @@
+# Runtime state written by the agents (tasks, memory, history, holiday cache, SDK session id)
+.state/
+state/
+*.tmp
+
+# Secrets: never commit keys
+.env
+.env.*
+*.key
+*.pem
+secrets*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

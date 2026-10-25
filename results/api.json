@@ -1,0 +1,163 @@
+{
+  "version": "api",
+  "mode": "live",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "turns": [
+    {
+      "id": "t1",
+      "session": "s1",
+      "reply": "I've saved these:\n- **Rule:** No tasks of any kind on Saturday.\n- **Rule:** No work tasks on Friday.\n- **Preference:** High-priority tasks go at the start of the week.\n\nFrom now on I'll refuse any date that breaks a rule. When I suggest dates, I'll put high-priority tasks at the start of the week.\n\nQuick question: does your week start on Sunday or Monday?",
+      "tools_called": [
+        "remember",
+        "remember",
+        "remember"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 1644,
+      "cache_write_tokens": 2113,
+      "output_tokens": 470,
+      "model_calls": 2,
+      "cost_usd": 0.020318,
+      "seconds": 5.91
+    },
+    {
+      "id": "t2",
+      "session": "s1",
+      "reply": "I added all three tasks:\n\n| ID | Task | Due | Category | Priority |\n|---|---|---|---|---|\n| T1 | Quarterly report | 2027-04-13 (Tue) | work | high |\n| T3 | Team presentation draft | 2027-04-14 (Wed) | work | medium |\n| T2 | Buy a gift for Mom | 2027-04-15 (Thu) | personal | medium |\n\nNone of these dates break your rules or land on a holiday. The Quarterly report is high priority and due Tuesday, near the start of the week as you prefer. Coming up: Passover is on 2027-04-22, and its seventh day is on 2027-04-28.",
+      "tools_called": [
+        "check_holidays",
+        "add_task",
+        "add_task",
+        "add_task"
+      ],
+      "input_tokens": 8,
+      "cache_read_tokens": 7156,
+      "cache_write_tokens": 1075,
+      "output_tokens": 771,
+      "model_calls": 3,
+      "cost_usd": 0.022258,
+      "seconds": 9.06
+    },
+    {
+      "id": "t3",
+      "session": "s1",
+      "reply": "I marked the presentation draft (T3) as done. You have 2 open tasks left: T1 Quarterly report (2027-04-13) and T2 Buy a gift for Mom (2027-04-15).\n\n**Public holidays in Israel, April 2027:**\n- 2027-04-22 (Thu): Passover\n- 2027-04-28 (Wed): Seventh day of Passover\n\nNeither of your open tasks falls on these dates. I'll avoid them when suggesting deadlines.\n\nThis list came from a backup file stored on disk, not the live holiday website, so it may be missing some days. If anything around Passover matters to you, like the eve of the holiday, tell me and I'll avoid those days too.",
+      "tools_called": [
+        "complete_task",
+        "check_holidays"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 6769,
+      "cache_write_tokens": 764,
+      "output_tokens": 517,
+      "model_calls": 2,
+      "cost_usd": 0.015538,
+      "seconds": 8.11
+    },
+    {
+      "id": "t4",
+      "session": "s2",
+      "reply": "Welcome back! Here's what I have saved:\n\n**Rules:**\n- No tasks of any kind on Saturday.\n- No work tasks on Friday.\n\n**Preference:**\n- High-priority tasks go at the start of the week.\n\n**Open tasks:**\n| ID | Task | Due | Category | Priority |\n|---|---|---|---|---|\n| T1 | Quarterly report | 2027-04-13 (Tue) | work | high |\n| T2 | Buy a gift for Mom | 2027-04-15 (Thu) | personal | medium |\n\nThe Quarterly report is due in 2 days.",
+      "tools_called": [
+        "recall",
+        "list_tasks"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 8325,
+      "cache_write_tokens": 685,
+      "output_tokens": 290,
+      "model_calls": 2,
+      "cost_usd": 0.010914,
+      "seconds": 3.85
+    },
+    {
+      "id": "t5",
+      "session": "s2",
+      "reply": "I didn't add either task because both dates break your rules:\n\n- **Budget meeting with client** on 2027-04-17 is a **Saturday**, and you don't schedule any tasks on Saturday.\n- **Server migration** on 2027-04-16 is a **Friday**, and you don't schedule work tasks on Friday.\n\n**Suggested dates.** Both tasks are high priority, so these are at the start of next week:\n- Budget meeting with client: **2027-04-18 (Sun)** or **2027-04-19 (Mon)**\n- Server migration: **2027-04-19 (Mon)** or **2027-04-20 (Tue)**\n\nIf they need to happen sooner, 2027-04-14 (Wed) and 2027-04-15 (Thu) are also allowed. None of these dates are holidays. Passover is on 2027-04-22.\n\nWhich dates should I use? It would also help to know whether your week starts on Sunday or Monday.",
+      "tools_called": [],
+      "input_tokens": 4,
+      "cache_read_tokens": 4637,
+      "cache_write_tokens": 370,
+      "output_tokens": 539,
+      "model_calls": 1,
+      "cost_usd": 0.013573,
+      "seconds": 6.41
+    },
+    {
+      "id": "t6",
+      "session": "s2",
+      "reply": "I added both tasks:\n\n| ID | Task | Due | Category | Priority |\n|---|---|---|---|---|\n| T4 | Budget meeting with client | 2027-04-18 (Sun) | work | high |\n| T5 | Server migration | 2027-04-25 (Sun) | work | high |\n\n**How I picked the migration date:**\n- 2027-04-22 (Thu) is Passover, a holiday.\n- 2027-04-23 (Fri) breaks your no-work-on-Friday rule.\n- 2027-04-24 (Sat) breaks your no-tasks-on-Saturday rule.\n- 2027-04-25 (Sun) is the first allowed day, and it falls at the start of the week, which suits a high-priority task.\n\nThe holiday list still comes from the backup file, so it may be missing some days.",
+      "tools_called": [
+        "add_task",
+        "add_task"
+      ],
+      "input_tokens": 6,
+      "cache_read_tokens": 10731,
+      "cache_write_tokens": 1174,
+      "output_tokens": 622,
+      "model_calls": 2,
+      "cost_usd": 0.02048,
+      "seconds": 11.1
+    }
+  ],
+  "totals": {
+    "input_tokens": 36,
+    "cache_read_tokens": 39262,
+    "cache_write_tokens": 6181,
+    "output_tokens": 3209,
+    "model_calls": 12,
+    "cost_usd": 0.10308,
+    "seconds": 44.44,
+    "cache_hit_pct": 86.3
+  },
+  "checks": [
+    {
+      "check": "tasks_saved",
+      "passed": true,
+      "detail": "missing=[] total=5"
+    },
+    {
+      "check": "task_completed",
+      "passed": true,
+      "detail": "[('T3', 'done')]"
+    },
+    {
+      "check": "rules_persisted",
+      "passed": true,
+      "detail": "rules=[('friday', 'work'), ('saturday', 'all')]"
+    },
+    {
+      "check": "contradiction_blocked",
+      "passed": true,
+      "detail": "violations=[]"
+    },
+    {
+      "check": "external_tool_used",
+      "passed": true,
+      "detail": "called=True cache={'IL-2027': 'fallback-file'}"
+    },
+    {
+      "check": "holiday_aware_date",
+      "passed": true,
+      "detail": "[('Server migration', '2027-04-25')]"
+    },
+    {
+      "check": "session2_recall",
+      "passed": true,
+      "detail": "reply mentions both rules"
+    }
+  ],
+  "checks_passed": "7/7",
+  "loc": {
+    "loop": 45,
+    "tools": 26,
+    "history": 46,
+    "memory": 26,
+    "context": 35,
+    "compaction": 42,
+    "caching": 23,
+    "tokens": 40,
+    "agent+main": 92
+  }
+}

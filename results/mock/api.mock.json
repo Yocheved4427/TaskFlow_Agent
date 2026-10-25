@@ -1,0 +1,166 @@
+{
+  "version": "api",
+  "mode": "mock",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "turns": [
+    {
+      "id": "t1",
+      "session": "s1",
+      "reply": "Saved: no tasks on Saturday, no work on Friday, and high priority early in the week.",
+      "tools_called": [
+        "remember",
+        "remember",
+        "remember"
+      ],
+      "input_tokens": 1184,
+      "cache_read_tokens": 962,
+      "cache_write_tokens": 1184,
+      "output_tokens": 80,
+      "model_calls": 2,
+      "cost_usd": 0.012448,
+      "seconds": 0.09
+    },
+    {
+      "id": "t2",
+      "session": "s1",
+      "reply": "Added three tasks.",
+      "tools_called": [
+        "add_task",
+        "add_task",
+        "add_task"
+      ],
+      "input_tokens": 394,
+      "cache_read_tokens": 2528,
+      "cache_write_tokens": 394,
+      "output_tokens": 80,
+      "model_calls": 2,
+      "cost_usd": 0.005652,
+      "seconds": 0.02
+    },
+    {
+      "id": "t3",
+      "session": "s1",
+      "reply": "Marked as done. In April: Passover on 22.4 and the Seventh day of Passover on 28.4.",
+      "tools_called": [
+        "complete_task",
+        "check_holidays"
+      ],
+      "input_tokens": 291,
+      "cache_read_tokens": 3302,
+      "cache_write_tokens": 291,
+      "output_tokens": 80,
+      "model_calls": 2,
+      "cost_usd": 0.004879,
+      "seconds": 0.79
+    },
+    {
+      "id": "t4",
+      "session": "s2",
+      "reply": "Your rules: no tasks on Saturday, no work on Friday. Open: Quarterly report, Buy a gift for Mom.",
+      "tools_called": [
+        "recall",
+        "list_tasks"
+      ],
+      "input_tokens": 297,
+      "cache_read_tokens": 3882,
+      "cache_write_tokens": 297,
+      "output_tokens": 80,
+      "model_calls": 2,
+      "cost_usd": 0.005049,
+      "seconds": 0.01
+    },
+    {
+      "id": "t5",
+      "session": "s2",
+      "reply": "Not added: 17.4 is a Saturday and 16.4 is a Friday, both break your rules. Maybe 18.4?",
+      "tools_called": [
+        "add_task",
+        "add_task"
+      ],
+      "input_tokens": 365,
+      "cache_read_tokens": 4490,
+      "cache_write_tokens": 365,
+      "output_tokens": 80,
+      "model_calls": 2,
+      "cost_usd": 0.005783,
+      "seconds": 0.01
+    },
+    {
+      "id": "t6",
+      "session": "s2",
+      "reply": "Scheduled: budget meeting on 18.4, server migration on 25.4 (22.4 is a holiday, 23.4 Friday, 24.4 Saturday).",
+      "tools_called": [
+        "check_holidays",
+        "add_task",
+        "add_task"
+      ],
+      "input_tokens": 420,
+      "cache_read_tokens": 8018,
+      "cache_write_tokens": 420,
+      "output_tokens": 120,
+      "model_calls": 3,
+      "cost_usd": 0.007784,
+      "seconds": 0.02
+    }
+  ],
+  "totals": {
+    "input_tokens": 2951,
+    "cache_read_tokens": 23182,
+    "cache_write_tokens": 2951,
+    "output_tokens": 520,
+    "model_calls": 13,
+    "cost_usd": 0.0416,
+    "seconds": 0.94,
+    "cache_hit_pct": 79.7
+  },
+  "checks": [
+    {
+      "check": "tasks_saved",
+      "passed": true,
+      "detail": "missing=[] total=5"
+    },
+    {
+      "check": "task_completed",
+      "passed": true,
+      "detail": "[('T3', 'done')]"
+    },
+    {
+      "check": "rules_persisted",
+      "passed": true,
+      "detail": "rules=[('friday', 'work'), ('saturday', 'all')]"
+    },
+    {
+      "check": "contradiction_blocked",
+      "passed": true,
+      "detail": "violations=[]"
+    },
+    {
+      "check": "external_tool_used",
+      "passed": true,
+      "detail": "called=True cache={'IL-2027': 'fallback-file'}"
+    },
+    {
+      "check": "holiday_aware_date",
+      "passed": true,
+      "detail": "[('Server migration', '2027-04-25')]"
+    },
+    {
+      "check": "session2_recall",
+      "passed": true,
+      "detail": "reply mentions both rules"
+    }
+  ],
+  "checks_passed": "7/7",
+  "loc": {
+    "loop": 45,
+    "tools": 26,
+    "history": 46,
+    "memory": 26,
+    "context": 35,
+    "compaction": 42,
+    "caching": 23,
+    "tokens": 40,
+    "agent+main": 92
+  }
+}

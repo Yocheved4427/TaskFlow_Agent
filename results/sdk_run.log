@@ -1,0 +1,112 @@
+﻿
+=== session s1 (new agent instance, resume from disk) ===
+[SDK/agent.py] options built (model=claude-opus-5-5, effort=medium, resume=None)
+
+--- t1 user: Hi! Remember my rules: I don't schedule any tasks on Saturday, and there are no work tasks on Friday. Also, I prefer high-priority tasks to be at the start of the week.
+[SDK/tools.py] recall({"query":""}) -> {"rules":[],"notes":[]}
+[SDK/tools.py] remember({"kind":"rule","text":"No tasks of any kind on Saturday.","weekday":"saturday","applies_to":"all"}) -> {"saved":"rule","replaced":false,"rules":1}
+[SDK/tools.py] remember({"kind":"rule","text":"No work tasks on Friday.","weekday":"friday","applies_to":"work"}) -> {"saved":"rule","replaced":false,"rules":2}
+[SDK/tools.py] remember({"kind":"preference","text":"Prefers high-priority tasks scheduled at the start of the week."}) -> {"saved":"preference","notes":1}
+[SDK/agent.py] turn: 2 calls, in=4 cache_read=2674 out=743 $0.0420
+--- t1 assistant: Hi! I've saved all three:
+
+1. **Rule:** No tasks of any kind on Saturday.
+2. **Rule:** No work tasks on Friday.
+3. **Preference:** High-priority tasks go at the start of the week.
+
+From now on I'll refuse to add any task on a Saturday, or a work task on a Friday, and I'll suggest a different date instead. For high-priority tasks I'll suggest dates early in the week, and I'll check for holidays first.
+
+When you say "start of the week," do you mean Sunday–Monday (Israeli week) or Monday–Tuesday? Until you tell me otherwise, I'll go with Sunday–Monday.
+
+--- t2 user: Please add three tasks: 'Quarterly report' (work, high priority, due 13.4.2027), 'Buy a gift for Mom' (personal, medium, due 15.4.2027), and 'Team presentation draft' (work, medium, due 14.4.2027).
+[SDK/tools.py] recall({"query":""}) -> {"rules":["no all on saturday","no work on friday"],"notes":["preference: Prefers high-priority tasks scheduled at the start of the week."]}
+[SDK/tools.py] check_holidays({"year":2027,"month":4,"country":"IL"}) -> {"source":"fallback-file","holidays":["2027-04-22 thu Passover","2027-04-28 wed Seventh day of Passover"]}
+[SDK/tools.py] add_task({"title":"Quarterly report","due":"2027-04-13","category":"work","priority":"high"}) -> {"id":"T1","updated":false,"weekday":"tuesday"}
+[SDK/tools.py] add_task({"title":"Buy a gift for Mom","due":"2027-04-15","category":"personal","priority":"medium"}) -> {"id":"T2","updated":false,"weekday":"thursday"}
+[SDK/tools.py] add_task({"title":"Team presentation draft","due":"2027-04-14","category":"work","priority":"medium"}) -> {"id":"T3","updated":false,"weekday":"wednesday"}
+[SDK/agent.py] turn: 3 calls, in=6 cache_read=11371 out=1047 $0.0360
+--- t2 assistant: I added all three tasks:
+
+| ID | Task | Due | Category | Priority |
+|---|---|---|---|---|
+| T1 | Quarterly report | 2027-04-13 (Tue) | work | high |
+| T3 | Team presentation draft | 2027-04-14 (Wed) | work | medium |
+| T2 | Buy a gift for Mom | 2027-04-15 (Thu) | personal | medium |
+
+- None of the dates break your rules (no Saturdays, no work on Fridays) or fall on a holiday. The next holidays this month are Passover on 2027-04-22 and the seventh day of Passover on 2027-04-28. That holiday list came from a saved backup file, not the live holiday service.
+- You prefer high-priority tasks at the start of the week, but the Quarterly report is due on a Tuesday. Should I move it to Monday, 2027-04-12?
+
+--- t3 user: I finished the presentation draft, mark it as done. And check which holidays there are in Israel in April 2027, so I don't set deadlines on a holiday.
+[SDK/tools.py] complete_task({"task_id":"T3"}) -> {"id":"T3","status":"done","open_left":2}
+[SDK/tools.py] check_holidays({"year":2027,"month":4,"country":"IL"}) -> {"source":"fallback-file","holidays":["2027-04-22 thu Passover","2027-04-28 wed Seventh day of Passover"]}
+[SDK/agent.py] turn: 2 calls, in=4 cache_read=10256 out=539 $0.0190
+--- t3 assistant: I marked "Team presentation draft" (T3) as done. You have 2 open tasks left: T1 (Quarterly report) and T2 (Buy a gift for Mom).
+
+**Holidays in Israel, April 2027:**
+- 2027-04-22 (Thu): Passover
+- 2027-04-28 (Wed): Seventh day of Passover
+
+Neither of your open tasks falls on these dates.
+
+This list came from a saved backup file, not the live holiday service, so it may be incomplete. For example, it doesn't include the days between the two holiday dates (April 23–27, the intermediate days of Passover). Many workplaces are partly closed then, so I'd avoid those days for important deadlines too.
+
+=== session s2 (new agent instance, resume from disk) ===
+[SDK/agent.py] options built (model=claude-opus-5-5, effort=medium, resume=0fe40e1f-ba7c-4de7-a8ef-727523a240ed)
+
+--- t4 user: I'm back. Which rules do you remember about me, and what are my open tasks?
+[SDK/tools.py] recall({"query":""}) -> {"rules":["no all on saturday","no work on friday"],"notes":["preference: Prefers high-priority tasks scheduled at the start of the week."]}
+[SDK/tools.py] list_tasks({"status":"open"}) -> {"count":2,"tasks":["T1|Quarterly report|2027-04-13|work|high|open","T2|Buy a gift for Mom|2027-04-15|personal|medium|open"]}
+[SDK/agent.py] turn: 2 calls, in=4 cache_read=11799 out=336 $0.0151
+--- t4 assistant: Welcome back!
+
+**Your rules:**
+1. No tasks of any kind on Saturday.
+2. No work tasks on Friday.
+
+**Your preference:**
+- High-priority tasks go at the start of the week.
+
+**Open tasks:**
+
+| ID | Task | Due | Category | Priority |
+|---|---|---|---|---|
+| T1 | Quarterly report | 2027-04-13 (Tue) | work | high |
+| T2 | Buy a gift for Mom | 2027-04-15 (Thu) | personal | medium |
+
+You haven't answered my earlier question yet: should I move the Quarterly report to Monday, 2027-04-12, to match your start-of-week preference?
+
+--- t5 user: Add 'Budget meeting with client' (work, high priority) on 17.4.2027, and 'Server migration' (work, high) on 16.4.2027.
+[SDK/agent.py] turn: 1 calls, in=2 cache_read=6438 out=426 $0.0124
+--- t5 assistant: I didn't add either task, because both dates break your rules:
+
+- **Budget meeting with client** on 2027-04-17 is a **Saturday**. That breaks your rule of no tasks on Saturday.
+- **Server migration** on 2027-04-16 is a **Friday**. That breaks your rule of no work tasks on Friday.
+
+**Suggested dates** (both are high priority, so start of next week):
+- Budget meeting with client: **2027-04-18 (Sun)**
+- Server migration: **2027-04-19 (Mon)**
+
+Neither date is a holiday. Passover starts on 2027-04-22, so both tasks would be done before it. If they need to happen this week instead, Thursday 2027-04-15 is the last allowed day.
+
+Should I add them on these dates?
+
+--- t6 user: You're right. So set the budget meeting for 18.4.2027, and the server migration for the first day from 22.4.2027 onward that my rules allow and that is not a holiday.
+[SDK/tools.py] add_task({"title":"Budget meeting with client","due":"2027-04-18","category":"work","priority":"high"}) -> {"id":"T4","updated":false,"weekday":"sunday"}
+[SDK/tools.py] add_task({"title":"Server migration","due":"2027-04-25","category":"work","priority":"high"}) -> {"id":"T5","updated":false,"weekday":"sunday"}
+[SDK/agent.py] turn: 2 calls, in=4 cache_read=14052 out=725 $0.0259
+--- t6 assistant: I added both tasks:
+
+| ID | Task | Due | Category | Priority |
+|---|---|---|---|---|
+| T4 | Budget meeting with client | 2027-04-18 (Sun) | work | high |
+| T5 | Server migration | 2027-04-25 (Sun) | work | high |
+
+**How I picked the Server migration date:**
+- 2027-04-22 (Thu): Passover, a holiday.
+- 2027-04-23 (Fri): no work tasks on Friday.
+- 2027-04-24 (Sat): no tasks on Saturday.
+- **2027-04-25 (Sun):** the first day that's allowed. It's also the start of the week, which fits your high-priority preference.
+
+April 25 isn't on the holiday list I have, but it's one of the intermediate days of Passover, when many workplaces are partly closed. If you want to avoid those days, the next option is **2027-04-29 (Thu)**, the day after the seventh day of Passover. Should I move it there?
+
+checks: 7/7  cost: $0.1504  -> C:\Users\User\AppData\Local\Temp\sdk_try.json

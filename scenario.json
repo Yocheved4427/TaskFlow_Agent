@@ -1,0 +1,46 @@
+{
+  "name": "taskflow: two sessions before Passover 2027",
+  "today": "2027-04-11",
+  "sessions": [
+    {
+      "id": "s1",
+      "resume": false,
+      "turns": [
+        {"id": "t1", "user": "Hi! Remember my rules: I don't schedule any tasks on Saturday, and there are no work tasks on Friday. Also, I prefer high-priority tasks to be at the start of the week."},
+        {"id": "t2", "user": "Please add three tasks: 'Quarterly report' (work, high priority, due 13.4.2027), 'Buy a gift for Mom' (personal, medium, due 15.4.2027), and 'Team presentation draft' (work, medium, due 14.4.2027)."},
+        {"id": "t3", "user": "I finished the presentation draft, mark it as done. And check which holidays there are in Israel in April 2027, so I don't set deadlines on a holiday."}
+      ]
+    },
+    {
+      "id": "s2",
+      "resume": true,
+      "turns": [
+        {"id": "t4", "user": "I'm back. Which rules do you remember about me, and what are my open tasks?"},
+        {"id": "t5", "user": "Add 'Budget meeting with client' (work, high priority) on 17.4.2027, and 'Server migration' (work, high) on 16.4.2027."},
+        {"id": "t6", "user": "You're right. So set the budget meeting for 18.4.2027, and the server migration for the first day from 22.4.2027 onward that my rules allow and that is not a holiday."}
+      ]
+    }
+  ],
+  "checks": [
+    "tasks_saved",
+    "task_completed",
+    "rules_persisted",
+    "contradiction_blocked",
+    "external_tool_used",
+    "holiday_aware_date",
+    "session2_recall"
+  ],
+  "expect": {
+    "tasks": [
+      {"title": "Quarterly report", "due": "2027-04-13", "category": "work"},
+      {"title": "gift", "due": "2027-04-15", "category": "personal"},
+      {"title": "budget", "due": "2027-04-18", "category": "work"},
+      {"title": "Server migration", "due": "2027-04-25", "category": "work"}
+    ],
+    "completed": "presentation",
+    "rules": [["saturday", "all"], ["friday", "work"]],
+    "forbidden_dates": ["2027-04-16", "2027-04-17", "2027-04-22"],
+    "holiday_aware": {"title": "Server migration", "due": "2027-04-25"},
+    "recall_turn": "t4"
+  }
+}
